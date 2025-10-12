@@ -123,6 +123,7 @@ const addCard = async (e) => {
   <div class="flex justify-between items-center relative pb-2">
     <div>
       <h2>
+        <!-- XSS -->
         {list.title}
       </h2>
     </div>
