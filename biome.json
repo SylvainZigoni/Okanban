@@ -1,0 +1,73 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "files": {
+    "includes": ["**", "!**/dist/*.js"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 4,
+    "lineWidth": 120
+  },
+  "html": {
+    "formatter": {
+      "enabled": true
+    }
+  },
+
+  "javascript": {
+    "formatter": {
+      "semicolons": "always",
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "jsxQuoteStyle": "single",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "all",
+      "quoteStyle": "single"
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none",
+      "indentWidth": 2
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "includes": ["**", "!**/node_modules"],
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error",
+        "noUnusedPrivateClassMembers": "error"
+      },
+      "suspicious": {
+        "noConsole": { "level": "error", "options": { "allow": ["error", "info"] } }
+      },
+      "performance": {
+        "noDelete": "off"
+      },
+      "style": {
+        "noParameterAssign": "error",
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "noUselessElse": "error"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+import { Router } from 'express';
+import { getAll, getById, create, update, deleteById } from '../controllers/list.controller.js';
+import { validateListCreation, validateListUpdate } from '../middlewares/list.middleware.js';
+import { validateId } from '../middlewares/common.middleware.js';
+
+const listRouter = Router();
+
+listRouter.get('/', getAll);
+listRouter.get('/:id', validateId, getById);
+listRouter.post('/', validateListCreation, create);
+listRouter.patch('/:id', validateId, validateListUpdate, update);
+listRouter.delete('/:id', validateId, deleteById);
+
+export { listRouter };
