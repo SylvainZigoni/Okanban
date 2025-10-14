@@ -7,6 +7,7 @@ import { errorHandler, notFound } from './middlewares/common.middleware.js';
 import { cardRouter } from './routes/card.routes.js';
 import { listRouter } from './routes/list.routes.js';
 import { tagRouter } from './routes/tag.routes.js';
+import { authRouter } from './routes/auth.routes.js';
 
 const PORT = process.env.PORT || 3000;
 
@@ -26,6 +27,8 @@ app.use(
 app.use(express.json());
 
 app.use(xss());
+
+app.use('/auth', authRouter);
 
 app.use('/lists', listRouter);
 app.use('/cards', cardRouter);
