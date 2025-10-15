@@ -4,7 +4,7 @@ import { checkBody } from '../utils/common.util.js';
 export function validateCardCreation(req, res, next) {
     const createCardSchema = Joi.object({
         content: Joi.string().required(),
-        position: Joi.number().required(),
+        position: Joi.number().integer().positive(),
         list_id: Joi.number().required(),
         color: Joi.string(),
     });
