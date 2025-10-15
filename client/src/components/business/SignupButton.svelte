@@ -16,21 +16,16 @@
     <input type="password" name="password" autocomplete="new-password">
   </label>
 
-  <label>
-    Confirmation du mot de passe
-    <input type="password" name="confirm" autocomplete="new-password">
-  </label>
 </FormModal>
 
 <script>
-  import { api } from "../../services/api.service.js";
-  import FormModal from "../generic/FormModal.svelte";
+import { api } from '../../services/api.service.js';
+import FormModal from '../generic/FormModal.svelte';
 
-  let open = $state(false);
-  let toggleModal = () => open = !open;
+let open = $state(false);
+let toggleModal = () => (open = !open);
 
-  async function signup(formData) {
+async function signup(formData) {
     await api.register(formData);
-  }
-
+}
 </script>
