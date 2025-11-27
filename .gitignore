@@ -1,5 +1,6 @@
 node_modules
 .env
+.database.docker.env
 .vscode
 .idea
 enonces/e03.md
