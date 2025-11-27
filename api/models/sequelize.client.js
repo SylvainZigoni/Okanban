@@ -1,13 +1,13 @@
 import "dotenv/config";
 import { Sequelize } from "sequelize";
 
-export const sequelize = new Sequelize(process.env.PG_URL, {
-  define: {
-    createdAt: "created_at",
-    updatedAt: "updated_at"
-  },
-  logging: false
-}); 
+export const sequelize = new Sequelize(process.env.DB_URL, {
+    define: {
+        createdAt: "created_at",
+        updatedAt: "updated_at",
+    },
+    logging: false,
+});
 
 // Tester : TOP-LEVEL AWAIT autorisé en ESM !
 // Pas besoin necessairement d'être dans une fonction 'async'
