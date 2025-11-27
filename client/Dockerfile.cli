@@ -1,0 +1,24 @@
+# On part d'une image existante
+FROM node:lts-alpine
+
+# Répertoire de travail dans le conteneur
+WORKDIR /usr/src/app
+
+# Copie de package.json et package-lock.json dans le conteneur
+COPY ./package*.json ./
+
+# On lance NPM pour l'installation des dépendances
+RUN npm i
+
+# Copie du code dans le conteneur
+COPY . .
+
+# On lance la construction de l'application
+RUN npm run build
+
+# On expose le port 4173
+# C'est le port de la version production de Vite (le port 5173, c'est pour la version dev)
+EXPOSE 4173
+
+# On lance l'application en preview, pas en dev (c'est la version prod, utilisant le dist généré par la commande npm run build)
+CMD [ "npm", "run", "preview", "--", "--host" ]
