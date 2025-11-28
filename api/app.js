@@ -27,6 +27,8 @@ app.use(
             "http://127.0.0.1:4173",
             "http://api:3000",
             "http://client:4173",
+            "http://sylvainzigoni-server.eddi.cloud",
+            "https://sylvainzigoni-server.eddi.cloud",
         ],
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization"],

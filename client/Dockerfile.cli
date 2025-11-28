@@ -21,4 +21,4 @@ RUN npm run build
 EXPOSE 4173
 
 # On lance l'application en preview, pas en dev (c'est la version prod, utilisant le dist généré par la commande npm run build)
-CMD [ "npm", "run", "preview", "--", "--host" ]
+CMD [ "npm", "run", "preview", "--", "--host", "0.0.0.0" ]

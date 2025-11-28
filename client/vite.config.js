@@ -4,6 +4,15 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [svelte(), tailwindcss()],
-  
+    plugins: [svelte(), tailwindcss()],
+    server: {
+        host: "0.0.0.0",
+        port: 4173,
+        strictPort: true,
+    },
+    preview: {
+        host: "0.0.0.0",
+        port: 4173,
+        allowedHosts: ["sylvainzigoni-server.eddi.cloud"],
+    },
 });
