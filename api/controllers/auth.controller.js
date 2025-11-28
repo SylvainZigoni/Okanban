@@ -6,8 +6,6 @@ import { StatusCodes } from "http-status-codes";
 export async function register(req, res) {
     const { username, password } = req.body;
 
-    console.log("Request body", req.body);
-
     try {
         const hash = await argon2.hash(password);
 
@@ -20,8 +18,6 @@ export async function register(req, res) {
             role_id: memberRole.id,
         });
         // const user = await User.create({ username, password: hash });
-
-        console.log("User created", user);
 
         res.status(StatusCodes.CREATED).json({
             id: user.id,

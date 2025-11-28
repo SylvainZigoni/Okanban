@@ -18,11 +18,6 @@ const app = express();
 // app.use(cors('*'));
 // ? l'option origin permet de restreindre les sites autorisés à faire des requêtes sur notre serveur
 
-app.use((req, res, next) => {
-    console.log("Origin:", req.headers.origin); // Log l'origine de la requête
-    next();
-});
-
 app.use(
     cors({
         origin: [
