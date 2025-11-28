@@ -36,7 +36,7 @@
     -   Copier le fichier `.env.example` dans `client/.env` et configurer les valeurs.
     -   Assurez vous d'avoir bien renseigner dans le fichier `vite.config.js` le serveur sur lequel le front sera hebergé :
 
-````js
+```js
 export default defineConfig({
     plugins: [svelte(), tailwindcss()],
     server: {
@@ -50,7 +50,7 @@ export default defineConfig({
         allowedHosts: ["sylvainzigoni-server.eddi.cloud"],
     },
 });
-    ```
+```
 
 -   BDD : copier le fichier `.database.docker.env.example` dans `/database.docker.env` et configurer les valeurs
 
@@ -61,4 +61,5 @@ export default defineConfig({
 -   Rendez vous à l'adresse http://localhost:4173
 
 ## Déployer le projet :
-````
+
+[Procédure pas à pas pour déployer le projet sur un VM Kourou (VPS)](./DEPLOYER.md)
