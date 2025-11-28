@@ -1,18 +1,18 @@
 export const httpRequester = {
-    get: (endpoint) => request('GET', endpoint),
-    post: (endpoint, body) => request('POST', endpoint, body),
-    patch: (endpoint, body) => request('PATCH', endpoint, body),
-    put: (endpoint, body) => request('PUT', endpoint, body),
-    delete: (endpoint) => request('DELETE', endpoint),
+    get: (endpoint) => request("GET", endpoint),
+    post: (endpoint, body) => request("POST", endpoint, body),
+    patch: (endpoint, body) => request("PATCH", endpoint, body),
+    put: (endpoint, body) => request("PUT", endpoint, body),
+    delete: (endpoint) => request("DELETE", endpoint),
 };
 
 async function request(method, endpoint, body) {
-    const accessToken = localStorage.getItem('token');
+    const accessToken = localStorage.getItem("token");
 
-    const response = await fetch(`http://localhost:3000${endpoint}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}${endpoint}`, {
         method,
         headers: {
-            ...(body && { 'Content-Type': 'application/json' }),
+            ...(body && { "Content-Type": "application/json" }),
             ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
         },
         body: body ? JSON.stringify(body) : undefined,
@@ -20,11 +20,13 @@ async function request(method, endpoint, body) {
 
     if (!response.ok) {
         console.error(response);
-        throw new Error(`Failed to fetch ${method} ${endpoint}: ${response.statusText}`);
+        throw new Error(
+            `Failed to fetch ${method} ${endpoint}: ${response.statusText}`
+        );
     }
 
     // Certaines routes API ne renvoie pas de body (ex: routes DELETE avec retour 204 No Content)
-    if (!response.headers.get('Content-Type')?.includes('application/json')) {
+    if (!response.headers.get("Content-Type")?.includes("application/json")) {
         return null;
     }
 

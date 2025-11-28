@@ -1,26 +1,42 @@
-import { Role, User } from '../models/index.js';
-import jwt from 'jsonwebtoken';
-import * as argon2 from 'argon2';
-import { StatusCodes } from 'http-status-codes';
+import { Role, User } from "../models/index.js";
+import jwt from "jsonwebtoken";
+import * as argon2 from "argon2";
+import { StatusCodes } from "http-status-codes";
 
 export async function register(req, res) {
-    // ! il faut sanitizer username
     const { username, password } = req.body;
+
+    console.log("Request body", req.body);
 
     try {
         const hash = await argon2.hash(password);
-        const memberRole = await Role.findOne({ where: { name: 'member' } });
 
-        const user = await User.create({ username: username, password: hash, role_id: memberRole.id });
+        const memberRole = await Role.findOne({ where: { name: "member" } });
+
+        console.log("Member role :", memberRole);
+        const user = await User.create({
+            username: username,
+            password: hash,
+            role_id: memberRole.id,
+        });
         // const user = await User.create({ username, password: hash });
 
-        res.status(StatusCodes.CREATED).json({ id: user.id, username: user.username });
+        console.log("User created", user);
+
+        res.status(StatusCodes.CREATED).json({
+            id: user.id,
+            username: user.username,
+        });
     } catch (error) {
-        if (error.name === 'SequelizeUniqueConstraintError') {
-            return res.status(StatusCodes.CONFLICT).json({ error: 'Username exists' });
+        if (error.name === "SequelizeUniqueConstraintError") {
+            return res
+                .status(StatusCodes.CONFLICT)
+                .json({ error: "Username exists" });
         }
 
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server Error' });
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            error: "Internal Server Error",
+        });
     }
 }
 
@@ -33,11 +49,13 @@ export async function login(req, res) {
             where: {
                 username: username,
             },
-            include: 'role',
+            include: "role",
         });
 
         if (!user) {
-            return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Pseudo ou mot de passe invalide' });
+            return res
+                .status(StatusCodes.UNAUTHORIZED)
+                .json({ error: "Pseudo ou mot de passe invalide" });
         }
 
         // * destructuring : on extrait password de user, et on le renomme hash car la constante password est déjà utilisé?
@@ -47,7 +65,9 @@ export async function login(req, res) {
         const ok = await argon2.verify(hash, password);
 
         if (!ok) {
-            return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Pseudo ou mot de passe invalide' });
+            return res
+                .status(StatusCodes.UNAUTHORIZED)
+                .json({ error: "Pseudo ou mot de passe invalide" });
         }
 
         // * Création du token
@@ -64,8 +84,8 @@ export async function login(req, res) {
             // ? la SECRET est la clé de chiffrement des données
             process.env.JWT_SECRET,
             {
-                expiresIn: '1h',
-            },
+                expiresIn: "1h",
+            }
         );
 
         // * Ajout de l'user sur la réponse
@@ -80,11 +100,15 @@ export async function login(req, res) {
             },
         });
     } catch (error) {
-        if (error.name === 'SequelizeUniqueConstraintError') {
-            return res.status(StatusCodes.CONFLICT).json({ error: 'Username exists' });
+        if (error.name === "SequelizeUniqueConstraintError") {
+            return res
+                .status(StatusCodes.CONFLICT)
+                .json({ error: "Username exists" });
         }
 
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server Error' });
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            error: "Internal Server Error",
+        });
     }
 }
 
@@ -93,8 +117,8 @@ export async function getCurrentUserInfo(req, res) {
 
     // ? On précise que l'on ne veut pas récupérer le mot de passe
     const user = await User.findByPk(userId, {
-        attributes: { exclude: ['password'] },
-        include: 'role',
+        attributes: { exclude: ["password"] },
+        include: "role",
     });
 
     res.json(user);

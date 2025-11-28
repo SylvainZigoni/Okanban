@@ -1,5 +1,5 @@
-import { DataTypes, Model } from 'sequelize';
-import { sequelize } from './sequelize.client.js';
+import { DataTypes, Model } from "sequelize";
+import { sequelize } from "./sequelize.client.js";
 
 //
 class User extends Model {
@@ -33,8 +33,8 @@ User.init(
     // * le 2nd objet est la configuration du modèle (comment se connecter à la BDD, comment se nomme la table sur laquelle agit le modèle)
     {
         sequelize: sequelize,
-        tableName: 'users',
-    },
+        tableName: "users",
+    }
 );
 //
 export { User };

@@ -1,5 +1,5 @@
-import { DataTypes, Model } from 'sequelize';
-import { sequelize } from './sequelize.client.js';
+import { DataTypes, Model } from "sequelize";
+import { sequelize } from "./sequelize.client.js";
 
 class Role extends Model {}
 
@@ -9,14 +9,15 @@ Role.init(
             type: DataTypes.STRING,
             allowNull: false,
             // ? defaut ou pas defaut
-            defaultValue: 'member',
+            defaultValue: "member",
             unique: true,
         },
     },
     {
         sequelize: sequelize, // instance de connexion
-        tableName: 'role',
-    },
+        tableName: "role",
+        timestamps: true,
+    }
 );
 
 export { Role };
